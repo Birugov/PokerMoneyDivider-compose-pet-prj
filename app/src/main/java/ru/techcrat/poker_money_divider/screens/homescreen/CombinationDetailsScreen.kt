@@ -25,12 +25,10 @@ import ru.techcrat.poker_money_divider.models.Card
 import ru.techcrat.poker_money_divider.models.Combination
 
 @Composable
-fun CombinationDetailsScreen(combination: String) {
-    Log.d("combination_1", combination)
-    val hand = Gson().fromJson(combination, Combination::class.java)
-    Column(Modifier.padding(top = 200.dp, start = 0.dp, end = 0.dp)) {
-        CombinationBox(hand = hand)
-        NameTextBox(hand = hand)
+fun CombinationDetailsScreen(combination: Combination) {
+    Column(modifier = Modifier.width(360.dp)) {
+        CombinationBox(hand = combination)
+        NameTextBox(hand = combination)
     }
 
 
@@ -44,7 +42,8 @@ fun CombinationBox(hand: Combination) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp),
+            .height(80.dp)
+            .padding(8.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -82,16 +81,18 @@ fun CombinationBox(hand: Combination) {
 
 @Composable
 fun NameTextBox(hand: Combination) {
-    Box(
-        contentAlignment = Alignment.Center
+    Row(
+        horizontalArrangement = Arrangement.Start
     ) {
         Text(
             text = stringResource(id = hand.name),
             fontSize = 16.sp,
-            modifier = Modifier.padding(start = 10.dp),
+            modifier = Modifier.padding(start = 28.dp, bottom = 2.dp),
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Bold
         )
+
+
 
     }
 }

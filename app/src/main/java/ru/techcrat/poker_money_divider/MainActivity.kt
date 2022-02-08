@@ -154,17 +154,6 @@ class MainActivity : ComponentActivity() {
                 GameDetailsScreen()
             }
 
-            composable(
-                route = NavigationItem.CombinationDetails.route +"/{combination}",
-                arguments = listOf(navArgument( "combination") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val args = requireNotNull(backStackEntry.arguments)
-                val combination = args.getString("combination"," ")
-                Log.d("combination_1", combination)
-                CombinationDetailsScreen(combination = combination)
-            }
-
-
         }
     }
 
