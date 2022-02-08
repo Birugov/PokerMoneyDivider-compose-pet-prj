@@ -1,6 +1,7 @@
 package ru.techcrat.poker_money_divider
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,14 +15,17 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import ru.techcrat.poker_money_divider.constantData.COMBINATIONS
 import ru.techcrat.poker_money_divider.nav.NavigationItem
+import ru.techcrat.poker_money_divider.screens.gamedetailsscreen.GameDetailsScreen
+import ru.techcrat.poker_money_divider.screens.homescreen.CombinationDetailsScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.HomeScreen
-import ru.techcrat.poker_money_divider.screens.homescreen.generateData
 import ru.techcrat.poker_money_divider.ui.theme.Poker_money_dividerTheme
 
 class MainActivity : ComponentActivity() {
@@ -128,22 +132,34 @@ class MainActivity : ComponentActivity() {
     fun NavigationGraph(navController: NavHostController) {
         NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
             composable(NavigationItem.Home.route) {
-                ListScreen(list = listScreen())
+                HomeScreen(
+                    list = COMBINATIONS,
+                    this@MainActivity,
+                    navController
+                )
             }
             composable(NavigationItem.GameList.route) {
                 ListScreen(list = listScreen())
             }
             composable(NavigationItem.Game.route) {
-                HomeScreen(
-                    list = generateData(),
-                    this@MainActivity,
-                    navController
-                )
+                ListScreen(list = listScreen())
             }
 
-            composable(NavigationItem.NewScreen.route) {
-                NewScreen()
+            composable(NavigationItem.GameDetails.route) {
+                GameDetailsScreen()
             }
+
+            composable(
+                route = NavigationItem.CombinationDetails.route +"/{combination}",
+                arguments = listOf(navArgument( "combination") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val args = requireNotNull(backStackEntry.arguments)
+                val combination = args.getString("combination"," ")
+                Log.d("combination_1", combination)
+                CombinationDetailsScreen(combination = combination)
+            }
+
+
         }
     }
 
@@ -156,12 +172,6 @@ class MainActivity : ComponentActivity() {
             }
             launchSingleTop = true
             restoreState = true
-        }
-    }
-    @Composable
-    fun NewScreen(){
-        Scaffold(Modifier.fillMaxSize(), backgroundColor = Color.White) {
-            Text(text = "text".repeat(100))
         }
     }
 }

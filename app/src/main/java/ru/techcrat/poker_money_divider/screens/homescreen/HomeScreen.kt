@@ -1,7 +1,7 @@
 package ru.techcrat.poker_money_divider.screens.homescreen
 
 import android.content.Context
-import android.widget.Toast
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,39 +12,52 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.google.gson.Gson
 import ru.techcrat.poker_money_divider.R
+import ru.techcrat.poker_money_divider.models.Combination
 import ru.techcrat.poker_money_divider.nav.NavigationItem
 
 @Composable
-fun HomeScreen(list: List<String>, context: Context, navController: NavHostController) {
-    InitLazyColumn(list = list, context = context, navController)
+fun HomeScreen(list: List<Combination>, context: Context, navController: NavHostController) {
+    InitLazyColumn(list = list, navController)
 }
 
 @Composable
-fun InitLazyColumn(list: List<String>, context: Context, navController: NavHostController) {
+fun InitLazyColumn(list: List<Combination>, navController: NavHostController) {
     LazyColumn(Modifier.fillMaxSize()) {
         items(list) { item ->
             Card(elevation = 12.dp, modifier = Modifier
                 .padding(12.dp)
                 .fillMaxSize()
                 .height(40.dp)
-                .clickable { navigateToNewScreen(navController, NavigationItem.NewScreen.route) }
-            ){
+                .clickable {
+                    navigateToNewScreen(
+                        navController,
+                        NavigationItem.CombinationDetails.route,
+                        item
+                    )
+                }
+            ) {
                 Row(
                     Modifier
                         .height(20.dp)
-                        .fillMaxSize()) {
+                        .fillMaxSize()
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_launcher_background),
                         contentDescription = "gfgdfgd",
                         Modifier.padding(8.dp)
                     )
-                    Text(text = item, textAlign = TextAlign.Center, fontSize = 24.sp)
+                    Text(
+                        text = stringResource(id = item.name),
+                        textAlign = TextAlign.Center,
+                        fontSize = 24.sp
+                    )
                 }
             }
 
@@ -53,12 +66,13 @@ fun InitLazyColumn(list: List<String>, context: Context, navController: NavHostC
 
 }
 
-fun generateData(): List<String> {
-    return listOf("Artem")
-}
-
-private fun navigateToNewScreen(navController: NavHostController, route: String) {
-    navController.navigate(route) {
+private fun navigateToNewScreen(
+    navController: NavHostController,
+    route: String,
+    combination: Combination
+) {
+    Log.d("combination_1", Gson().toJson(combination))
+    navController.navigate("$route/${Gson().toJson(combination)}") {
         navController.graph.route?.let { rout ->
             popUpTo(rout) {
                 saveState = true

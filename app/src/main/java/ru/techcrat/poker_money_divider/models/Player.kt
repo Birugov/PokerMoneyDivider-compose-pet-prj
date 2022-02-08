@@ -1,4 +1,4 @@
-package ru.techcrat.poker_money_divider
+package ru.techcrat.poker_money_divider.models
 
 data class Player(
     val name:String,
