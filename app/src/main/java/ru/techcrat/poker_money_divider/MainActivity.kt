@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -91,7 +93,10 @@ class MainActivity : ComponentActivity() {
         Scaffold(
             bottomBar = { BottomNavigationBar(navController = navController) }
         ) {
-            NavigationGraph(navController = navController)
+            innerPadding->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                NavigationGraph(navController = navController)
+            }
         }
     }
 

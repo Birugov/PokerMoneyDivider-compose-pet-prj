@@ -31,7 +31,6 @@ fun CombinationDetailsScreen(combination: String) {
     Column(Modifier.padding(top = 200.dp, start = 0.dp, end = 0.dp)) {
         CombinationBox(hand = hand)
         NameTextBox(hand = hand)
-        DescriptionTextBox(hand = hand)
     }
 
 
@@ -40,13 +39,13 @@ fun CombinationDetailsScreen(combination: String) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun CombinationBox(hand: Combination) {
+fun CombinationBox(hand: Combination) {
 
     Box(
-        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .height(88.dp)
+            .height(80.dp),
+        contentAlignment = Alignment.Center
     ) {
         Row(
             Modifier.matchParentSize(),
@@ -82,16 +81,13 @@ private fun CombinationBox(hand: Combination) {
 }
 
 @Composable
-private fun NameTextBox(hand: Combination) {
+fun NameTextBox(hand: Combination) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(88.dp)
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = stringResource(id = hand.name),
-            fontSize = 32.sp,
+            fontSize = 16.sp,
             modifier = Modifier.padding(start = 10.dp),
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Bold
@@ -101,7 +97,7 @@ private fun NameTextBox(hand: Combination) {
 }
 
 @Composable
-private fun DescriptionTextBox(hand: Combination) {
+fun DescriptionTextBox(hand: Combination) {
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier.fillMaxSize()
@@ -186,7 +182,7 @@ fun FlipCard(
     }
 }
 
-private fun backwardChanger(card: Card): Int {
+fun backwardChanger(card: Card): Int {
     return if (card.resourceName.contains("transparent")) {
         R.drawable.backward_card_transparent
     } else {
