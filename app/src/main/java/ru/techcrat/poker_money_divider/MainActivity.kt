@@ -181,5 +181,4 @@ class MainActivity : ComponentActivity() {
             restoreState = true
         }
     }
-
 }
