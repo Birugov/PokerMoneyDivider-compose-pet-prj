@@ -1,7 +1,11 @@
 package ru.techcrat.poker_money_divider
 
+import android.app.StatusBarManager
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.View
+import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -10,29 +14,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.insets.systemBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ru.techcrat.poker_money_divider.constantData.COMBINATIONS
 import ru.techcrat.poker_money_divider.nav.NavigationItem
 import ru.techcrat.poker_money_divider.screens.gamedetailsscreen.GameDetailsScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.CombinationDetailsScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.HomeScreen
 import ru.techcrat.poker_money_divider.ui.theme.Poker_money_dividerTheme
+import kotlin.math.absoluteValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MainScreen()
         }
@@ -52,12 +67,14 @@ class MainActivity : ComponentActivity() {
             NavigationItem.GameList
         )
         BottomNavigation(
-            backgroundColor = colorResource(id = R.color.design_default_color_primary),
-            contentColor = Color.White
+            backgroundColor = colorResource(id = R.color.gold),
+            contentColor = Color.Black
         ) {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = navBackStackEntry?.destination?.route
             items.forEach { item ->
                 BottomNavigationItem(
-                    selected = false,
+                    selected = currentRoute==item.route,
                     onClick = {
                         navigateToNewScreen(navController, item.route)
                     },
@@ -70,32 +87,32 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     label = { item.title?.let { Text(text = it) } },
-                    selectedContentColor = Color.White,
+                    selectedContentColor = Color.Black,
+                    unselectedContentColor = Color.Black.copy(0.2f),
                     alwaysShowLabel = true
                 )
+
             }
 
         }
 
     }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        Poker_money_dividerTheme {
-            Greeting("Android")
-        }
-    }
-
     @Composable
     fun MainScreen() {
-        val navController = rememberNavController()
-        Scaffold(
-            bottomBar = { BottomNavigationBar(navController = navController) }
-        ) {
-            innerPadding->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                NavigationGraph(navController = navController)
+        ProvideWindowInsets {
+            val controller = rememberSystemUiController()
+            controller.setStatusBarColor(Color.Transparent, true)
+            val navController = rememberNavController()
+            Scaffold(
+                modifier = Modifier
+                    .systemBarsPadding(true),
+                bottomBar = { BottomNavigationBar(navController = navController) }
+            ) { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    NavigationGraph(navController = navController)
+                }
+
             }
         }
     }
@@ -124,7 +141,6 @@ class MainActivity : ComponentActivity() {
         )
     }
 
-
     fun listScreen(): MutableList<String> {
         val list = mutableListOf<String>()
         for (i in 'a'..'z') {
@@ -138,9 +154,7 @@ class MainActivity : ComponentActivity() {
         NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
             composable(NavigationItem.Home.route) {
                 HomeScreen(
-                    list = COMBINATIONS,
-                    this@MainActivity,
-                    navController
+                    list = COMBINATIONS
                 )
             }
             composable(NavigationItem.GameList.route) {
@@ -168,7 +182,5 @@ class MainActivity : ComponentActivity() {
             restoreState = true
         }
     }
+
 }
-
-
-

@@ -31,22 +31,20 @@ import ru.techcrat.poker_money_divider.models.Combination
 import ru.techcrat.poker_money_divider.nav.NavigationItem
 
 @Composable
-fun HomeScreen(list: List<Combination>, context: Context, navController: NavHostController) {
-    InitLazyColumn(list = list, navController)
+fun HomeScreen(list: List<Combination>) {
+    InitLazyColumn(list = list)
 }
 
 @Composable
-fun InitLazyColumn(list: List<Combination>, navController: NavHostController) {
+fun InitLazyColumn(list: List<Combination>) {
     LazyColumn(Modifier.fillMaxSize()) {
         items(list) { item ->
             var expanded by remember { mutableStateOf(false) }
             Card(
                 border = BorderStroke(2.dp, color = Color.Black),
                 shape = MaterialTheme.shapes.medium,
-                elevation = 30.dp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    //.height(140.dp)
                     .padding(10.dp)
                     .animateContentSize()
             ) {
@@ -55,8 +53,7 @@ fun InitLazyColumn(list: List<Combination>, navController: NavHostController) {
                         CombinationDetailsScreen(combination = item)
                         Image(
                             modifier = Modifier
-                                .height(48.dp)
-                                .padding(start = 10.dp, top = 10.dp)
+                                .padding(top = 10.dp)
                                 .clickable {
                                     expanded = !expanded
                                 },
@@ -65,9 +62,10 @@ fun InitLazyColumn(list: List<Combination>, navController: NavHostController) {
 
                             )
                     }
-                    Box(contentAlignment = Alignment.TopCenter
+                    Box(
+                        contentAlignment = Alignment.TopCenter
                     ) {
-                        (if (expanded)stringResource(id = item.descriptionResId) else null)?.let {
+                        (if (expanded) stringResource(id = item.descriptionResId) else null)?.let {
                             Text(
                                 text = it, fontSize = 16.sp,
                                 modifier = Modifier.padding(start = 28.dp, bottom = 4.dp),

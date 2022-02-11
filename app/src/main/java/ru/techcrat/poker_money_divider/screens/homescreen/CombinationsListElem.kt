@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,7 +31,6 @@ fun CombinationDetailsScreen(combination: Combination) {
         CombinationBox(hand = combination)
         NameTextBox(hand = combination)
     }
-
 
 }
 
@@ -92,25 +92,7 @@ fun NameTextBox(hand: Combination) {
             fontWeight = FontWeight.Bold
         )
 
-
-
     }
-}
-
-@Composable
-fun DescriptionTextBox(hand: Combination) {
-    Box(
-        contentAlignment = Alignment.TopCenter,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = stringResource(id = hand.descriptionResId), fontSize = 24.sp,
-            modifier = Modifier.padding(start = 16.dp),
-            fontFamily = FontFamily.SansSerif,
-        )
-    }
-
-
 }
 
 enum class CardFace(val angle: Float) {
