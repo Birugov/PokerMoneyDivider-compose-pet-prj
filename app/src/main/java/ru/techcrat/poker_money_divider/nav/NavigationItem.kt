@@ -8,4 +8,5 @@ sealed class NavigationItem(var route: String, var icon: Int?, var title: String
     object Game : NavigationItem("games_list", R.drawable.game_page_menu_image, "Game")
     object GameDetails: NavigationItem("new_screen", null, null)
     object CombinationDetails : NavigationItem("combination_screen/{combination}", null, null )
+    object NewGame:NavigationItem("new_game_screen", R.drawable.game_page_menu_image, "Game")
 }

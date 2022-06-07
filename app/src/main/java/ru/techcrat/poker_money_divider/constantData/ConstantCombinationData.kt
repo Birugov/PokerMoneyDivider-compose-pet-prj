@@ -4,7 +4,6 @@ import ru.techcrat.poker_money_divider.R
 import ru.techcrat.poker_money_divider.models.Card
 import ru.techcrat.poker_money_divider.models.Combination
 
-
 val COMBINATIONS = listOf(
     Combination(
         R.string.pair_combination, listOf(
@@ -118,6 +117,30 @@ val COMBINATIONS = listOf(
             )
         ),
         descriptionResId = R.string.quads_combination_description
+    ),
+
+    Combination(
+        name = R.string.straight_flush_combination,
+        imageId = listOf(
+            Card(R.drawable.eight_clubs_card, "R.drawable.eight_clubs_card"),
+            Card(R.drawable.nine_clubs_card, "R.drawable.nine_clubs_card"),
+            Card(R.drawable.ten_clubs_card, "R.drawable.ten_clubs_card"),
+            Card(R.drawable.jack_clubs_card, "R.drawable.jack_clubs_card"),
+            Card(R.drawable.queen_clubs_card, "R.drawable.queen_clubs_card")
+        ),
+        descriptionResId = R.string.straight_flush_combination_description
+    ),
+
+    Combination(
+        name = R.string.royal_flush_combination,
+        imageId = listOf(
+            Card(R.drawable.ten_hearts_card, "R.drawable.ten_hearts_card"),
+            Card(R.drawable.jack_hearts_card, "R.drawable.jack_hearts_card"),
+            Card(R.drawable.queen_hearts_card, "R.drawable.queen_hearts_card"),
+            Card(R.drawable.king_hearts_card, "R.drawable.king_hearts_card"),
+            Card(R.drawable.ace_hearts_card, "R.drawable.ace_hearts_card")
+        ),
+        descriptionResId = R.string.royal_flush_combination_description
     )
 
 

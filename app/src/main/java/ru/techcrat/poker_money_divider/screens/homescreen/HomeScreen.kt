@@ -9,10 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,45 +37,46 @@ fun InitLazyColumn(list: List<Combination>) {
     LazyColumn(Modifier.fillMaxSize()) {
         items(list) { item ->
             var expanded by remember { mutableStateOf(false) }
-            Card(
-                border = BorderStroke(2.dp, color = Color.Black),
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .animateContentSize()
-            ) {
-                Column() {
-                    Row() {
-                        CombinationDetailsScreen(combination = item)
-                        Image(
-                            modifier = Modifier
-                                .padding(top = 10.dp)
-                                .clickable {
-                                    expanded = !expanded
-                                },
-                            painter = painterResource(id = R.drawable.info_icon),
-                            contentDescription = null,
+            Surface(elevation = 12.dp, modifier = Modifier.padding(10.dp).fillMaxWidth()) {
 
-                            )
-                    }
-                    Box(
-                        contentAlignment = Alignment.TopCenter
-                    ) {
-                        (if (expanded) stringResource(id = item.descriptionResId) else null)?.let {
-                            Text(
-                                text = it, fontSize = 16.sp,
-                                modifier = Modifier.padding(start = 28.dp, bottom = 4.dp),
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Medium
-                            )
+
+                Card(
+                    border = BorderStroke(2.dp, color = Color.Black),
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier
+                        .animateContentSize()
+                ) {
+                    Column() {
+                        Row() {
+                            CombinationDetailsScreen(combination = item)
+                            Image(
+                                modifier = Modifier
+                                    .padding(top = 10.dp)
+                                    .clickable {
+                                        expanded = !expanded
+                                    },
+                                painter = painterResource(id = R.drawable.info_icon),
+                                contentDescription = null,
+
+                                )
+                        }
+                        Box(
+                            contentAlignment = Alignment.TopCenter
+                        ) {
+                            (if (expanded) stringResource(id = item.descriptionResId) else null)?.let {
+                                Text(
+                                    text = it, fontSize = 16.sp,
+                                    modifier = Modifier.padding(start = 28.dp, bottom = 4.dp),
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
                         }
                     }
+
+
                 }
-
-
             }
-
         }
     }
 

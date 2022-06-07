@@ -10,10 +10,14 @@
     <string name="straight_combination_description">A straight is a hand that contains five cards of sequential rank, not all of the same suit, such as 7♣ 6♠ 5♠ 4♥ 3♥ (a "seven-high straight"). It ranks below a flush and above three of a kind.[6] Under high rules, an ace can rank either high (as in A♦ K♣ Q♣ J♦ 10♠, an ace-high straight) or low (as in 5♣ 4♦ 3♥ 2♥ A♠, a five-high straight)</string>
     <string name="flush_combination">Flush</string>
     <string name="flush_combination_description">A flush is a hand that contains five cards all of the same suit, not all of sequential rank, such as K♣ 10♣ 7♣ 6♣ 4♣ (a "king-high flush" or a "king-ten-high flush"). It ranks below a full house and above a straight. Under ace-to-five low rules, flushes are not possible</string>
-    <string name="fullhouse_combination">Full house</string>
+    <string name="fullhouse_combination">Full House</string>
     <string name="fullhouse_combination_description">A full house, also known as a full boat or a tight or a boat (and originally called a full hand), is a hand that contains three cards of one rank and two cards of another rank, such as 3♣ 3♠ 3♦ 6♣ 6♥ (a "full house, threes over sixes" or "threes full of sixes" or "threes full").It ranks below four of a kind and above a flush.</string>
     <string name="quads_combination">Four of a kind(Quads)</string>
     <string name="quads_combination_description">Also known as quads, is a hand that contains four cards of one rank and one card of another rank (the kicker), such as 9♣ 9♠ 9♦ 9♥ J♥ ("four of a kind, nines"). It ranks below a straight flush and above a full house.</string>
+    <string name="straight_flush_combination">Straight Flush</string>
+    <string name="straight_flush_combination_description">A straight flush is a hand that contains five cards of sequential rank, all of the same suit, such as Q♥ J♥ 10♥ 9♥ 8♥ (a "queen-high straight flush")</string>
+    <string name="royal_flush_combination">Royal Flush</string>
+    <string name="royal_flush_combination_description"> A straight flush including ace, king, queen, jack, and ten all in the same suit, which is the hand of the highest possible value when wild cards are not in use</string>
 
 
 </resources>

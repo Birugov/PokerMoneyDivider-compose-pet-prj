@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -38,7 +40,9 @@ import com.google.accompanist.insets.systemBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ru.techcrat.poker_money_divider.constantData.COMBINATIONS
 import ru.techcrat.poker_money_divider.nav.NavigationItem
+import ru.techcrat.poker_money_divider.screens.StartNewGameScreen
 import ru.techcrat.poker_money_divider.screens.gamedetailsscreen.GameDetailsScreen
+import ru.techcrat.poker_money_divider.screens.gamescreen.NewGameScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.CombinationDetailsScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.HomeScreen
 import ru.techcrat.poker_money_divider.ui.theme.Poker_money_dividerTheme
@@ -47,6 +51,7 @@ import kotlin.math.absoluteValue
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MainScreen()
@@ -54,14 +59,9 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Greeting(name: String) {
-        Text(text = "Hello $name!")
-    }
-
-    @Composable
     fun BottomNavigationBar(navController: NavHostController) {
         val items = listOf(
-            NavigationItem.Game,
+            NavigationItem.NewGame,
             NavigationItem.Home,
             NavigationItem.GameList
         )
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
             val currentRoute = navBackStackEntry?.destination?.route
             items.forEach { item ->
                 BottomNavigationItem(
-                    selected = currentRoute==item.route,
+                    selected = currentRoute == item.route,
                     onClick = {
                         navigateToNewScreen(navController, item.route)
                     },
@@ -148,6 +148,7 @@ class MainActivity : ComponentActivity() {
         return list
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun NavigationGraph(navController: NavHostController) {
         NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
@@ -160,11 +161,11 @@ class MainActivity : ComponentActivity() {
                 ListScreen(list = listScreen())
             }
             composable(NavigationItem.Game.route) {
-                ListScreen(list = listScreen())
+                NewGameScreen()
             }
 
-            composable(NavigationItem.GameDetails.route) {
-                GameDetailsScreen()
+            composable(NavigationItem.NewGame.route) {
+                StartNewGameScreen(navController)
             }
 
         }
