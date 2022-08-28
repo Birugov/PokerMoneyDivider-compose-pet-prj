@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import org.koin.core.context.startKoin
 import ru.techcrat.poker_money_divider.koin.roomDatabaseModule
+import ru.techcrat.poker_money_divider.koin.viewModelModule
 import ru.techcrat.poker_money_divider.room.PokerDividerDatabase
 
 
@@ -13,7 +14,8 @@ class App : Application() {
 
         startKoin {
             modules(
-                roomDatabaseModule
+                roomDatabaseModule,
+                viewModelModule
             )
         }
     }
