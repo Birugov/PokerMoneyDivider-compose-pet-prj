@@ -1,11 +1,6 @@
 package ru.techcrat.poker_money_divider
 
-import android.app.StatusBarManager
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.view.View
-import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -23,30 +18,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.insets.systemBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import ru.techcrat.poker_money_divider.constantData.COMBINATIONS
 import ru.techcrat.poker_money_divider.nav.NavigationItem
-import ru.techcrat.poker_money_divider.screens.StartNewGameScreen
-import ru.techcrat.poker_money_divider.screens.gamedetailsscreen.GameDetailsScreen
+import ru.techcrat.poker_money_divider.screens.gamescreen.StartNewGameScreen
 import ru.techcrat.poker_money_divider.screens.gamescreen.NewGameScreen
-import ru.techcrat.poker_money_divider.screens.homescreen.CombinationDetailsScreen
 import ru.techcrat.poker_money_divider.screens.homescreen.HomeScreen
-import ru.techcrat.poker_money_divider.ui.theme.Poker_money_dividerTheme
-import kotlin.math.absoluteValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

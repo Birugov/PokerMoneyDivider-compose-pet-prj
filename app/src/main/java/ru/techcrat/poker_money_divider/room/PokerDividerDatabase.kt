@@ -1,12 +1,16 @@
 package ru.techcrat.poker_money_divider.room
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.room.*
+import ru.techcrat.poker_money_divider.room.converters.Converters
+import ru.techcrat.poker_money_divider.room.converters.DateConverter
 
 @Database(
-entities =[PlayerDto::class],
-version = 1
+entities =[PlayerDto::class, GameDto::class],
+version = 1,
+
 )
+@TypeConverters(Converters::class, DateConverter::class)
 abstract class PokerDividerDatabase: RoomDatabase() {
+
 
 }
